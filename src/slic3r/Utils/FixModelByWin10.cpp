@@ -421,8 +421,9 @@ bool fix_model_by_win10_sdk_gui(ModelObject &model_object, int volume_idx, wxPro
 		}
 	});
     while (! finished) {
-		condition.wait_for(lock, std::chrono::milliseconds(500), [&progress]{ return progress.updated; });
+		condition.wait_for(lock, std::chrono::milliseconds(100), [&progress]{ return progress.updated; });
 		// decrease progress.percent value to avoid closing of the progress dialog
+		BOOST_LOG_TRIVIAL(error) << "chroust";
 		if (!progress_dialog.Update(progress.percent-1, msg_header + _(progress.message)))
 			canceled = true;
 		else
